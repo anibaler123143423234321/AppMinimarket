@@ -31,7 +31,6 @@ public class ConfigApi {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateSerializer())
                 .registerTypeAdapter(Time.class, new TimeSerializer())
-                .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrlE)//Si quieren ejecutar la app desde su móvil, cambiar aquí con la ip de su ordenador
