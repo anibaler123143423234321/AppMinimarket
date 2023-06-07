@@ -14,7 +14,7 @@ public class Carrito {
         int index = 0;
         boolean b = false;
         for (DetallePedido dp : detallePedidos) {
-            if (dp.getPlatillo().getId() == detallePedido.getPlatillo().getId()) {
+            if (dp.getProducto().getId() == detallePedido.getProducto().getId()) {
                 detallePedidos.set(index, detallePedido);
                 b = true;
                 return "El platillo ha sido agregado al carrito, se actualizará la cantidad";
@@ -32,7 +32,7 @@ public class Carrito {
     public static void eliminar(final int idp) {
         DetallePedido dpE = null;
         for (DetallePedido dp : detallePedidos) {
-            if (dp.getPlatillo().getId() == idp) {
+            if (dp.getProducto().getId() == idp) {
                 dpE = dp;
                 break;
             }

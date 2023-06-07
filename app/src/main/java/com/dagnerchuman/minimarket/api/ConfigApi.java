@@ -1,5 +1,6 @@
 package com.dagnerchuman.minimarket.api;
 
+import com.dagnerchuman.minimarket.entity.service.DocumentoAlmacenado;
 import com.dagnerchuman.minimarket.utils.DateSerializer;
 import com.dagnerchuman.minimarket.utils.TimeSerializer;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -17,11 +18,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigApi {
     public static final String baseUrlE = "http://10.0.2.2:9090";
-    public static final String ipDagner = "http://192.168.101.17:9090"; //IP DEL ORDENADOR.
+    public static final String ipDagner = "http://192.168.101.20:9090"; //IP DEL ORDENADOR.
     private static Retrofit retrofit;
     private static String token = "";
 
     private static UsuarioApi usuarioApi;
+    private static ClienteApi clienteApi;
+    private static DocumentoAlmacenadoApi documentoAlmacenadoApi;
+    private static CategoriaApi categoriaApi;
+    private static ProductoApi productoApi;
+    private static PedidoApi pedidoApi;
 
     static {
         initClient();
@@ -67,5 +73,38 @@ public class ConfigApi {
         return usuarioApi;
     }
 
+    public static ClienteApi getClienteApi() {
+        if (clienteApi == null) {
+            clienteApi = retrofit.create(ClienteApi.class);
+        }
+        return clienteApi;
+    }
+
+    public static DocumentoAlmacenadoApi getDocumentoAlmacenadoApi() {
+        if (documentoAlmacenadoApi == null) {
+            documentoAlmacenadoApi = retrofit.create(DocumentoAlmacenadoApi.class);
+        }
+        return documentoAlmacenadoApi;
+    }
+
+    public static CategoriaApi getCategoriaApi() {
+        if (categoriaApi == null) {
+            categoriaApi = retrofit.create(CategoriaApi.class);
+        }
+        return categoriaApi;
+    }
+
+    public static ProductoApi getProductoApi() {
+        if (productoApi == null) {
+            productoApi = retrofit.create(ProductoApi.class);
+        }
+        return productoApi;
+    }
+    public static PedidoApi getPedidoApi(){
+        if(pedidoApi == null){
+            pedidoApi = retrofit.create(PedidoApi.class);
+        }
+        return pedidoApi;
+    }
 
 }

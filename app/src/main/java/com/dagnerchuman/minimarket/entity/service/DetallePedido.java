@@ -4,7 +4,7 @@ public class DetallePedido {
     private int id;
     private int cantidad;
     private Double precio;
-    private Platillo platillo;
+    private Producto producto;
     private Pedido pedido;
 
     public int getId() {
@@ -31,12 +31,12 @@ public class DetallePedido {
         this.precio = precio;
     }
 
-    public Platillo getPlatillo() {
-        return platillo;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setPlatillo(Platillo platillo) {
-        this.platillo = platillo;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Pedido getPedido() {
