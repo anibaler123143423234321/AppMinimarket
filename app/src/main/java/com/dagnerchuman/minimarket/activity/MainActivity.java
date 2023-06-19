@@ -1,18 +1,31 @@
 package com.dagnerchuman.minimarket.activity;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
+
+import android.os.Bundle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
+
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,17 +47,28 @@ import java.sql.Time;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity {
+    private ViewPager2 viewPager;
+    private List<Integer> images;
+    private ImageAdapter imageAdapter;
 
     private EditText edtMail, edtPassword;
     private Button btnIniciarSesion;
     private UsuarioViewModel viewModel;
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private TextView txtNuevoUsuario;
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        viewPager = findViewById(R.id.viewPager);
+        images = getImages();
+        imageAdapter = new ImageAdapter(images);
+
+        viewPager.setAdapter(imageAdapter);
+
         this.initViewModel();
         this.init();
     }
@@ -65,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 if (validar()) {
                     viewModel.login(edtMail.getText().toString(), edtPassword.getText().toString()).observe(this, response -> {
                         if (response.getRpta() == 1) {
-                            //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             toastCorrecto(response.getMessage());
                             Usuario u = response.getBody();
                             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,11 +115,14 @@ public class MainActivity extends AppCompatActivity {
                 toastIncorrecto("Se ha producido un error al intentar loguearte : " + e.getMessage());
             }
         });
+
+
         txtNuevoUsuario.setOnClickListener(v -> {
-            Intent i = new Intent(this, InicioActivity.class);
+            Intent i = new Intent(this, RegistrarUsuarioActivity.class);
             startActivity(i);
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
+
         edtMail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -188,6 +215,50 @@ public class MainActivity extends AppCompatActivity {
             this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
         }
     }
+
+    private List<Integer> getImages() {
+        List<Integer> images = new ArrayList<>();
+        images.add(R.drawable.image1);
+        images.add(R.drawable.image2);
+        images.add(R.drawable.image3);
+        // Agrega más imágenes según sea necesario
+        return images;
+    }
+
+    public static class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+        private List<Integer> images;
+
+        public ImageAdapter(List<Integer> images) {
+            this.images = images;
+        }
+
+        @Override
+        public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
+            return new ImageViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ImageViewHolder holder, int position) {
+            int imageRes = images.get(position);
+            holder.imageView.setImageResource(imageRes);
+        }
+
+        @Override
+        public int getItemCount() {
+            return images.size();
+        }
+
+        public static class ImageViewHolder extends RecyclerView.ViewHolder {
+            ImageView imageView;
+
+            public ImageViewHolder(View itemView) {
+                super(itemView);
+                imageView = itemView.findViewById(R.id.imageView);
+            }
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

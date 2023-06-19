@@ -1,13 +1,13 @@
 package com.dagnerchuman.minimarket.entity;
 
-public class SliderItem {
+public class ImageItem {
     private String titulo;
     private int imagen;
 
-    public SliderItem() {
+    public ImageItem() {
     }
 
-    public SliderItem(int imagen, String titulo) {
+    public ImageItem(int imagen, String titulo) {
         this.imagen = imagen;
         this.titulo = titulo;
     }

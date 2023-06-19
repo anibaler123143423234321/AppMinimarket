@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <!-- Logo en la parte superior -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="253dp"
+        android:layout_height="157dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:src="@drawable/logo_minimarket" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/linearParte2"
@@ -23,6 +33,12 @@
             android:text="@string/label_bienvenida"/>
     </LinearLayout>
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/linearParte3"

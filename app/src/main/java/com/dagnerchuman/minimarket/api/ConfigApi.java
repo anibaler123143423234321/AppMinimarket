@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigApi {
     public static final String baseUrlE = "http://10.0.2.2:9090";
-    public static final String ipDagner = "http://192.168.101.20:9090"; //IP DEL ORDENADOR.
+    public static final String ipDagner = "http://192.168.101.16:9090"; //IP DEL ORDENADOR.
     private static Retrofit retrofit;
     private static String token = "";
 

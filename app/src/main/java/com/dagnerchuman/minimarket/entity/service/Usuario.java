@@ -1,6 +1,9 @@
 package com.dagnerchuman.minimarket.entity.service;
 
+
+
 public class Usuario {
+
     private int id;
     private String email;
     private String clave;
